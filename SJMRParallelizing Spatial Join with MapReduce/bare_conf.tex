@@ -1,0 +1,44 @@
+
+\documentclass[conference]{IEEEtran}
+
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\ifCLASSINFOpdf
+
+\else
+
+\fi
+
+\usepackage{graphicx}
+\usepackage{listings}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+\begin{document}
+	
+	\title{SJMR: Parallelizing Spatial Join with MapReduce}	
+	\maketitle
+	\IEEEpeerreviewmaketitle	
+	\section{Summary}
+	This paper and just introduces a primitive algorithm called SJMR(Spatial Join with MapReduce), without spatial indexes. The following is the detailed description of SJMR algorithm.
+	\begin{enumerate}
+		\item Determining the partition number. The partition number should make the partitions, which are going to be merged, fit entirely in memory).
+		\item Map stage. Redistribute the tuples of R and S into different Reduce tasks according to spatial partitioning function. There is trade-off between Coefficient of variation and replication overhead.
+		\item Reduce stage Spatial join is carried out in two steps: filter step and refinement step.
+		\begin{enumerate}
+			\item Filter step:
+			\item Refinement step:
+		\end{enumerate}
+	\end{enumerate}
+	\section{important issues}
+	Decomposing the universe into smaller tiles makes it easier
+	to produce a more uniform partition distribution. However,
+	spatial objects that span tiles from multiple partitions have
+	to be replicated in all those partitions, thereby increasing the replication overhead.
+	\section{contents require further exploring}
+	\begin{itemize}
+		\item tile coding method
+	\end{itemize}
+\end{document}

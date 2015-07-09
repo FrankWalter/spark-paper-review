@@ -1,0 +1,55 @@
+
+\documentclass[conference]{IEEEtran}
+
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\ifCLASSINFOpdf
+
+\else
+
+\fi
+
+\usepackage{graphicx}
+\usepackage{listings}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+\begin{document}
+	
+	\title{SpatialHadoop: A MapReduce Framework
+		for Spatial Data∗}	
+	\maketitle
+	\IEEEpeerreviewmaketitle	
+	\section{Summary}
+	SpatialHadoop is a MapReduce framework with native support for spatial data, and it injects spatial data awareness in each Hadoop layer, namely, the language, storage, MapReduce, and operation layers.
+	
+	\textbf{"language layer"}. The language layer takes in the Spatial Query, parsed it, and compiled it to MapReduce Program. SpatialHadoop provides an extension to Pig Latin language, called Pigeon, which adds spatial data types, functions, and operations that conform to the OGC standard.
+	
+    \textbf{"operation layer"}. The operation layer takes in the compiled MapReduce Program from the language layer, and output the Configured MapReduce Job. The operations include Range Query, kNN, Spatial Join, geometry operations, kNN join, RNN and so on.
+    
+	\textbf{"storage layer"}. SpatialHadoop employs spatial index structures within HDFS. Grid file and R-tree, are not directly applicable in Hadoop, resulting in existing techniques for spatial indexing in Hadoop fall in three broad categories:
+	
+	\begin{itemize}
+		\item Build only: R-tree has to be queried outside MapReduce using traditional techniques.
+		\item Custom on-the-fly indexing: With each query execution, a non-standard index is created and discarded after query completion.
+		\item Indexing in HDFS. (adopted by SpatialHadoop)
+	\end{itemize}
+	
+	An index building in SpatialHadoop is composed of three main phases, namely, partitioning, local indexing, and global indexing.
+	
+	\begin{itemize}
+		\item Partitioning phase spatially partitions the input file into n partitions that satisfy Block fit, Spatial locality, and Load balancing. At the end, for each record r assigned to a partition p, the map function writes an intermediate pair $\left\langle p,r\right\rangle $. Such pairs are then grouped by p and sent to the reduce function for the local indexing phase.
+		\item Local Indexing phase aims to build a requested index structure(e.g., Grid or R-tree) as a local index on the data contents of each physical partition. Each local index has to fit in one HDFS block.
+		\item Global Indexing phase aims to build the requested index structure(e.g., Grid or R-tree) as a global index that indexes all partitions. In case the master node fails and restarts, the global index is lazily reconstructed from the rectangular boundaries of the file blocks, only when required.
+	\end{itemize}    
+	
+ 	\textbf{"MapReduce layer"}. The MapReduce Layer takes in the Configured MapReduce Job from the Operation layer and the Index Information from the Storage layer, and output Map/Reduce Tasks to the Storage/Processing Nodes. 
+ 	It's the query processing layer that runs MapReduce programs which supports spatially indexed input files. SpatialHadoop enriches traditional Hadoop systems by two main components: SpatialFileSplitter(used for early pruning) and SpatialRecordReader(used for parsing split produced from SpatialFileSplitter to generate key-value pairs).
+	
+
+
+
+	
+\end{document}

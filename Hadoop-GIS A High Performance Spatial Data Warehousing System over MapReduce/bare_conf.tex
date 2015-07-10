@@ -1,0 +1,32 @@
+
+\documentclass[conference]{IEEEtran}
+
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\ifCLASSINFOpdf
+
+\else
+
+\fi
+
+\usepackage{graphicx}
+\usepackage{listings}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+\begin{document}
+	\title{Hadoop-GIS: A High Performance Spatial Data Warehousing System over MapReduce}	
+	\maketitle
+	\IEEEpeerreviewmaketitle	
+	\section{Summary}
+	Hadoop-GIS extends Hive, and  is a data warehouse infrastructure build on top of Hadoop with a form grid index for range queries and self-join.
+	\section{drawbacks}
+	Hadoop-GIS deals with Hadoop as a black box, and hence it remains limited by the limitations of existing Hadoop systems.
+	\begin{itemize}
+		\item The limitations caused by Hadoop's being ill equipped in supporting spatial data.
+		\item Hadoop-GIS can only support uniform grid index.
+		\item Users can't define new spatial operations.				
+	\end{itemize}
+\end{document}

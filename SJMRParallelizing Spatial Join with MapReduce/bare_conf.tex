@@ -28,10 +28,12 @@
 		\item Map stage. Redistribute the tuples of R and S into different Reduce tasks according to spatial partitioning function. There is trade-off between Coefficient of variation and replication overhead.
 		\item Reduce stage Spatial join is carried out in two steps: filter step and refinement step.
 		\begin{enumerate}
-			\item Filter step:
-			\item Refinement step:
+			\item Filter step: The goal is to "pair" tuples from the same partition so that their MBRs could overlap, particularly, SJMR adopts a novel strip-based plane sweeping method.
+			\item Refinement step: The goal is to examine the spatial properties of the "paired" tuples, which are produced in the Filter step. A strategy is used to avoid random seeks in fetching R and S tuples saved in $R^T$ and $S^T$ on disk.
 		\end{enumerate}
 	\end{enumerate}
+	
+	To remove duplications, which may be produced when two tuples $T_R$ and $T_S$ are replicated to several partitions or strips, two methods are introduced: duplication avoidance(\emph{reference point method}) and duplication elimination(high cost). 
 	\section{important issues}
 	Decomposing the universe into smaller tiles makes it easier
 	to produce a more uniform partition distribution. However,

@@ -32,7 +32,7 @@
 	As a result, there are 3 phases in zkNN Join: 
 	\begin{itemize}
 		\item Phase 1 takes in R and S, then shifts them with vectors $\left\lbrace v_0,...,v_n \right\rbrace$ and find the partition boundary for each $R_i$ and$ S_i$ parallelly. The output of phase 1 is the approximate boundaries for $R_i$ and $S_i$.
-		\item Phase 2 takes in $R_i$ and $S_i$, partition them with boundaries got in Phase 1, after shuffling and sorting, $R_{i,j}$ and $S_{i,j}$ will be sent to the same reducer for binary searching. The output of this phase is (rid,sid,) kNN(r,$C_i(r)$).
-		\item Phase 3 decides kNN(r,C(r)) for any $r\in R$ from the kNN()
+		\item Phase 2 takes in $R_i$ and $S_i$, partition them with boundaries got in Phase 1, after shuffling and sorting, $R_{i,j}$ and $S_{i,j}$ will be sent to the same reducer for binary searching. The output of this phase is (rid,sid,d(r,s)) for each $s\in kNN(r,C_i(r))$.
+		\item Phase 3 decides kNN(r,C(r)) for any $r\in R$ from the $kNN(r,C_i(r))'s$ emitted by the reducers at the end of phase 2.
 	\end{itemize}
 \end{document}

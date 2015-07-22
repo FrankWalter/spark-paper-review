@@ -1,0 +1,79 @@
+
+\documentclass[conference]{IEEEtran}
+
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\ifCLASSINFOpdf
+
+\else
+
+\fi
+
+\usepackage{graphicx}
+\usepackage{listings}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+\begin{document}
+	
+	\title{Spark SQL: Relational Data Processing in Spark}	
+	\maketitle
+	\IEEEpeerreviewmaketitle	
+	\section{Summary}
+	evaluates operations lazily so that it can perform relational optimizations.
+	
+	DataFrame API
+	
+	extensible query optimizer called Catalyst.
+	
+	Spark SQL runs as a library on top of Spark.
+	
+	A DataFrame is equivalent to a table in a relational database, lazy
+	
+	DSL domain-specific language
+	AST abstract syntax tree
+	
+	ORM object-relational mapping
+	
+	Spark SQL can cache hot data in memory using columnar storage.
+
+	UDF User-defined functions
+
+	Trees can be manipulated using rules, which are functions from a tree to another tree.
+	
+	analyzing a logical plan to resolve references, logical plan optimization, physical planning,
+	code generation to compile parts of the query to Java bytecode. 
+	
+	An attribute is called unresolved if we do not know its type or have not matched it to an input table(or an alias).
+	
+	rule-based optimizations to the logical plan including: 
+	constant folding, predicate pushdown, projection pruning, null propagation, Boolean expression simplification, etc.
+	
+
+	
+	\section{Shark}
+	instead of replicating each RDD across nodes for fault-tolerance, Spark remembers the lineage of the RDD(the graph of operators used to build it), and recovers lost partitions by recomputing them from base data.
+	
+	Shark uses the Hive query compiler to parse the query and generate an abstract syntax tree. 
+	
+	PDE: partial DAG Execution gathers customizable statistics at global and per-partition granularities while materialize map outputs, and allows the DAG to be altered based on these statistics, either by choosing different operators or altering their parameters(such as their degrees of parallelism). These statistics are sent by each worker to the master, where they are aggregated and presented to the optimizer.
+	
+	launching too few reducers may overload reducer's network connections and exhaust their memories, which launching too many may prolong the job due to task scheduling overhead.	
+	
+	Shark implements a columnar memory store on top of Spark's native memory store.
+	
+	The information collected for each partition includes the range of each column and the distinct values if 
+	the number of distinct value is small.
+	
+	Shark built on the Hive codebase and achieved performances improvements by swapping out the physical execution 
+	engine part of Hive.
+	
+	Shark provides fine-grained fault tolerance.
+	
+	Memory-based Shuffle
+	
+	\section{Why are Previous MapReduce-Based System Slow?}
+	
+\end{document}
